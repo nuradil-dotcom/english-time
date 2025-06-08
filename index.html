@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Time course</title>
+  <link rel="icon" type="image/png" href='english_time_icon.png'>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ... предыдущие стили ... */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Montserrat Alternates", sans-serif;
+    }
+
+    body {
+      background: url(marquee-uk.jpg) no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      backdrop-filter: blur(4px);
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    header {
+      background: linear-gradient(to right, rgba(42, 114, 232, 0.7), rgba(0, 31, 119, 0.9));
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .logo-title img {
+      height: 100px;
+      transition: all 0.3s ease;
+    }
+
+    .main-title {
+      font-size: 90px;
+      font-weight: 700;
+      color: white;
+      transition: all 0.3s ease;
+      line-height: 0.85;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 3rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      display: none;
+    }
+
+    .container.active {
+      display: block;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      font-weight: 700;
+      background: linear-gradient(to right, rgba(42, 114, 232, 1), rgba(0, 31, 119, 0.9));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: 40px;
+    }
+    h1 {
+      margin-bottom: 1rem;
+      font-weight: 700;
+      background: linear-gradient(to right, rgba(42, 114, 232, 1), rgba(0, 31, 119, 0.9));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 0.3rem;
+      font-size: 1rem;
+    }
+
+    .form-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+    }
+
+    .submit-btn {
+      background: linear-gradient(to right, rgba(42, 114, 232, 1), rgba(0, 31, 119, 1));
+      color: white;
+    }
+
+    .reset-btn {
+      background: linear-gradient(to right, rgba(245, 0, 0, 1), rgba(110, 18, 18, 1));
+      color: white;
+    }
+
+    button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-section img {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .achievements ul {
+      list-style: disc;
+      margin-left: 1.5rem;
+    }
+
+    .flags {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .flags img {
+      width: 32px;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    footer a {
+      color: #00aced;
+      text-decoration: none;
+    }
+
+    /* Новые стили для кнопок внизу */
+    .bottom-nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px auto;
+      max-width: 900px;
+      flex-wrap: wrap;
+    }
+
+    .bottom-nav button {
+      padding: 12px 20px;
+      background: linear-gradient(to right, rgba(42, 114, 232, 1), rgba(0, 31, 119, 1));
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .bottom-nav button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    @media (max-width: 1200px) {
+      .main-title {
+        font-size: 70px;
+        line-height: 0.85;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .logo-title img {
+        height: 90px;
+      }
+      .main-title {
+        font-size: 50px;
+        line-height: 0.8;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: row;
+        padding: 1rem;
+      }
+      
+      .logo-title {
+        width: auto;
+        min-width: auto;
+        margin-top: 0;
+      }
+      
+      .main-title {
+        font-size: 40px;
+        line-height: 1;
+      }
+      
+      .container {
+        margin: 1.5rem auto;
+        padding: 1.5rem;
+      }
+
+      .bottom-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .bottom-nav button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo-title {
+        flex-direction: row;
+        text-align: left;
+        gap: 10px;
+        width: 100%;
+      }
+      
+      .logo-title img {
+        height: 80px;
+      }
+      
+      .main-title {
+        font-size: 30px;
+        display: block !important;
+        line-height: 1.1;
+        flex: 1;
+        /* Делаем заголовок двухстрочным */
+        word-break: break-word;
+        white-space: normal;
+      }
+      
+      .form-buttons {
+        flex-direction: column;
+      }
+      
+      header {
+        padding: 0.8rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .logo-title img {
+        height: 70px;
+      }
+      
+      .main-title {
+        font-size: 26px;
+      }
+      
+      header {
+        padding: 0.6rem;
+      }
+    }
+    /* Стили для круга за логотипом */
+    .logo-container {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .logo-circle {
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px; /* Немного больше логотипа */
+      height: 100px;
+      background-color: white;
+      border-radius: 50%;
+      z-index: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .logo-title img {
+      height: 100px;
+      transition: all 0.3s ease;
+      position: relative; /* Для z-index */
+      z-index: 1; /* Чтобы лого было над кругом */
+    }
+
+    /* Стили для прямоугольника за приветственным текстом */
+    .welcome-container {
+      position: relative;
+      height: 110px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .welcome-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 800px;
+      height: 70%;
+      background: rgba(255, 255, 255, 0.2); /* Полупрозрачный белый */
+      border-radius: 20px; /* Закругленные углы */
+      backdrop-filter: blur(5px); /* Эффект размытия */
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      z-index: 0;
+    }
+    
+    .welcome-text {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      color: white;
+      text-align: center;
+      position: relative;
+      z-index: 1; /* Текст над прямоугольником */
+      padding: 20px;
+    }
+
+    /* Адаптивные стили */
+    @media (max-width: 768px) {
+      .logo-circle {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .logo-title img {
+        height: 85px;
+      }
+      
+      .welcome-text {
+        font-size: 2rem;
+      }
+      
+      .welcome-bg {
+        height: 60%;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo-circle {
+        width: 90px;
+        height: 90px;
+      }
+      
+      .logo-title img {
+        height: 75px;
+      }
+      
+      .welcome-text {
+        font-size: 1.7rem;
+      }
+      
+      .welcome-bg {
+        height: 65%;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .logo-circle {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .logo-title img {
+        height: 70px;
+      }
+      
+      .welcome-text {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-title">
+      <!-- Добавляем контейнер для лого и круга -->
+      <div class="logo-container">
+        <div class="logo-circle"></div>
+        <img src="english_time_logo.png" alt="Logo">
+      </div>
+      <h1 class="main-title">English Time</h1>
+    </div>
+  </header>
+
+  <!-- Обновленный контейнер для приветственного текста -->
+  <div class="welcome-container">
+    <div class="welcome-bg"></div>
+    <h2 class="welcome-text">English Time-ға қош келдіңіз!</h2>
+  </div>
+
+  <!-- ... остальной код без изменений ... -->
+
+  <!-- Новые кнопки навигации внизу -->
+  <div class="bottom-nav">
+    <button onclick="showSection('form')">Өтініш жіберу</button>
+    <button onclick="showSection('about')">Мұғалім туралы</button>
+    <button onclick="showSection('achievements')">Оқушылардың жетістіктері</button>
+  </div>
+
+  <!-- Перенесенные секции -->
+  <div class="container" id="form">
+    <h1>Тіркелу формасы</h1>
+    <form id="registration-form">
+      <label for="fullname">Аты-жөніңіз</label>
+      <input type="text" id="fullname" required>
+
+      <label for="phone">Телефон нөміріңіз</label>
+      <input type="tel" id="phone" required pattern="[7-8]{1} [0-9]{3} [0-9]{3} [0-9]{4}">
+
+      <label for="school">Мектебіңіз</label>
+      <input type="text" id="school" required>
+
+      <label for="grade">Сыныбыңыз/статус</label>
+      <select id="grade" required>
+        <option disabled selected>Таңдаңыз</option>
+        <option>Сынып 1</option><option>Сынып 2</option><option>Сынып 3</option><option>Сынып 4</option><option>Сынып 5</option><option>Сынып 6</option><option>Сынып 7</option><option>Сынып 8</option><option>Сынып 9</option><option>Сынып 10</option><option>Сынып 11</option><option>Колледж студенті</option><option>Университет студенті</option><option>Ересек адам</option>
+      </select>
+
+      <label for="level">Ағылшын деңгейіңіз</label>
+      <select id="level" required>
+        <option disabled selected>Деңгейіңізді таңдаңыз</option>
+        <option>Beginner</option><option>Elementary</option><option>Pre-Intermediate</option><option>Intermediate</option><option>Upper-Intermediate</option><option>Advanced</option><option>Fluent</option>
+      </select>
+
+      <label for="path">Ағылшын үйрену мақсатыңыз</label>
+      <select id="path" required>
+        <option disabled selected>Мақсатыңызды таңдаңыз</option>
+        <option>Жалпылама ағылшын</option><option>IELTS Дайындық</option><option>FLEX Program</option><option>Басқа</option>
+      </select>
+
+      <label for="message">Қосар нәрсеңіз бар ма?</label>
+      <textarea id="message" rows="3"></textarea>
+
+      <div class="form-buttons">
+        <button type="submit" class="submit-btn">Өтініш жіберу</button>
+        <button type="reset" class="reset-btn">Форманы тазалау</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="container" id="about">
+    <h2>Мұғалім туралы</h2>
+    <img src="gabit.png" height="300" alt="Teacher">
+    <p>Джон Смит — тәжірибелі, халықаралық IELTS/FLEX бойынша 10+ жылдық тәжірибесі бар ағылшын тілі маманы.</p>
+    <div class="flags">
+      <img src="https://flagcdn.com/w320/gb.png" alt="UK Flag">
+      <img src="https://flagcdn.com/w320/us.png" alt="US Flag">
+    </div>
+  </div>
+
+  <div class="container" id="achievements">
+    <h2>Оқушылардың жетістіктері</h2>
+    <ul>
+      <li>15 оқушы IELTS 7.5+</li>
+      <li>8 оқушы FLEX бағдарламасына өтті</li>
+      <li>Эссе және сөйлеу сайыстарының жеңімпаздары</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>Байланыс: <a href="#">Instagram</a> | <a href="https://wa.me/77000000000">WhatsApp</a></p>
+    <p>&copy; 2025 English Time</p>
+  </footer>
+
+  <script>
+    let submittedPhones = [];
+
+    function showSection(id) {
+      document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      // Плавная прокрутка к секции
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    document.getElementById('registration-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const phone = document.getElementById('phone').value;
+      if (submittedPhones.includes(phone)) {
+        alert('Бұл нөмір бұрын қолданылған. Басқа нөмір енгізіңіз.');
+        return;
+      }
+      submittedPhones.push(phone);
+      alert('Өтініш сәтті жіберілді!');
+      this.reset();
+    });
+
+    document.querySelector('.reset-btn').addEventListener('click', function(e) {
+      if (!confirm('Форманы шынымен тазалағыңыз келе ме?')) {
+        e.preventDefault();
+      }
+    });
+
+    // Инициализация - показываем первую секцию при загрузке
+    window.onload = function() {
+      showSection('form');
+    };
+  </script>
+</body>
+</html>
